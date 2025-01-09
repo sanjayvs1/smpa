@@ -36,7 +36,7 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
             </div>
           ),
           th: ({ children }) => (
-            <th className="px-6 py-3 bg-background text-left text-xs font-medium text-foreground uppercase tracking-wider">
+            <th className="px-6 py-3 bg-slate-400 dark:bg-background text-left text-xs font-medium text-foreground uppercase tracking-wider">
               {children}
             </th>
           ),
