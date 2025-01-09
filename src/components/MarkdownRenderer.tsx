@@ -1,32 +1,12 @@
 import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
 
-const MarkdownRenderer = ({ content }) => {
+const MarkdownRenderer = ({ content }: { content: string }) => {
   return (
     <div className="prose dark:prose-invert max-w-none">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          code({ node, inline, className, children, ...props }) {
-            const match = /language-(\w+)/.exec(className || '');
-            return !inline && match ? (
-              <SyntaxHighlighter
-                style={dracula}
-                language={match[1]}
-                PreTag="div"
-                className="rounded-md"
-                {...props}
-              >
-                {String(children).replace(/\n$/, '')}
-              </SyntaxHighlighter>
-            ) : (
-              <code className={className} {...props}>
-                {children}
-              </code>
-            );
-          },
           // Style other markdown elements
           h1: ({ children }) => <h1 className="text-3xl font-bold mb-4">{children}</h1>,
           h2: ({ children }) => <h2 className="text-2xl font-bold mb-3">{children}</h2>,
@@ -35,7 +15,13 @@ const MarkdownRenderer = ({ content }) => {
           ul: ({ children }) => <ul className="list-disc ml-6 mb-4">{children}</ul>,
           ol: ({ children }) => <ol className="list-decimal ml-6 mb-4">{children}</ol>,
           li: ({ children }) => <li className="mb-1">{children}</li>,
-          blockquote: ({ children }) =
+          blockquote: ({ children }) => (
+            <blockquote className="border-l-4 border-gray-300 pl-4 italic my-4">
+              {children}
+            </blockquote>
+          ),
+          a: ({ children, href }) => (
+            <a href={href} className="text-blue-500 hover:text-blue-700 underline">
               {children}
             </a>
           ),
