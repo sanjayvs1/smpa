@@ -1,4 +1,5 @@
 "use client";
+import { BackgroundLines } from '@/components/BgLines';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { ModeToggle } from '@/components/ModeToggle';
 import { Button } from '@/components/ui/button';
@@ -62,45 +63,47 @@ export default function Home() {
   };
 
   return (
-    <main className="max-w-3xl h-screen mx-auto px-4 py-10 flex flex-col gap-5">
+    <BackgroundLines>
+      <main className="max-w-3xl h-screen mx-auto px-4 py-10 flex flex-col gap-5 relative z-50">
 
-      <div className='flex items-center gap-4'>
-        <ModeToggle />
-        <h1 className='font-bold'>Team Vimarsha's Level SuperMind Pre-Hackathon Submission</h1>
-      </div>
+        <div className='flex items-center gap-4'>
+          <ModeToggle />
+          <h1 className='font-bold'>Team Vimarsha's Level SuperMind Pre-Hackathon Submission</h1>
+        </div>
 
-      <div className="flex-1 pr-4 overflow-y-auto">
-        {messages.map((message, index) => (
-          <ChatMessage
-            key={index}
-            message={message.text}
-            isUser={message.isUser}
+        <div className="flex-1 pr-4 overflow-y-auto">
+          {messages.map((message, index) => (
+            <ChatMessage
+              key={index}
+              message={message.text}
+              isUser={message.isUser}
+            />
+          ))}
+        </div>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <Textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type your message..."
+            className="flex-1"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
           />
-        ))}
-      </div>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              'Send'
+            )}
+          </Button>
+        </form>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <Textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message..."
-          className="flex-1"
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
-              handleSubmit(e);
-            }
-          }}
-        />
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            'Send'
-          )}
-        </Button>
-      </form>
-
-    </main>
+      </main>
+    </BackgroundLines>
   );
 }
