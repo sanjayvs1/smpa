@@ -1,13 +1,11 @@
 "use client";
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Loader2 } from 'lucide-react';
-import { useToast } from "@/hooks/use-toast"
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { ModeToggle } from '@/components/ModeToggle';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from 'lucide-react';
+import { useState } from 'react';
 
 const ChatMessage = ({ message, isUser }: { message: string, isUser: boolean }) => (
   <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
@@ -24,7 +22,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
