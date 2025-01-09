@@ -35,13 +35,7 @@ const MarkdownRenderer = ({ content }) => {
           ul: ({ children }) => <ul className="list-disc ml-6 mb-4">{children}</ul>,
           ol: ({ children }) => <ol className="list-decimal ml-6 mb-4">{children}</ol>,
           li: ({ children }) => <li className="mb-1">{children}</li>,
-          blockquote: ({ children }) => (
-            <blockquote className="border-l-4 border-gray-300 pl-4 italic my-4">
-              {children}
-            </blockquote>
-          ),
-          a: ({ children, href }) => (
-            <a href={href} className="text-blue-500 hover:text-blue-700 underline">
+          blockquote: ({ children }) =
               {children}
             </a>
           ),
